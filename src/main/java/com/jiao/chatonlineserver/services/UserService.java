@@ -10,5 +10,7 @@ public interface UserService {
     public void InsertTestUser(UserTest ut);
     public void deleteUser(User user);
     public void updateUSer(User user);
-    public List<User> selectUser();
+    public List<User> selectUsers();
+    public User selectUser(User user);
+
 }

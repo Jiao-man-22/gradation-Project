@@ -71,12 +71,20 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/userSelect")
     public List userSelect(Model model){
-        List<User> usersList = this.userService.selectUser();
+        List<User> usersList = this.userService.selectUsers();
         if (usersList!=null){
             return usersList;
         }else {
             return null;
         }
+    }
+    @ResponseBody
+    @RequestMapping("/userSelectByName")
+    public User userSelectByName(@RequestParam String name){
+        User user = new User();
+        user.setName(name);
+        User user_1 = this.userService.selectUser(user);
+        return user_1;
     }
 
 

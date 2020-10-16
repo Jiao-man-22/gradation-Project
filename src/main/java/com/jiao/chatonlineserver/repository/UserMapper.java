@@ -14,4 +14,5 @@ public interface UserMapper {
     public void deleteUser(User user);
     public void updateUser(User user);
     public List<User> selectUsers();
+    public User selectUser(User user);
 }

@@ -55,8 +55,14 @@ public class UserServicesImpl implements UserService {
     }
 
     @Override
-    public List<User> selectUser() {
+    public List<User> selectUsers() {
         List<User> userslist = this.userDao.selectUsers();
         return userslist;
+    }
+
+    @Override
+    public User selectUser(User user) {
+        User user_1 = this.userDao.selectUser(user);
+        return user_1;
     }
 }
