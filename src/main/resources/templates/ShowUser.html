@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>展示用户页面</title>
+</head>
+<body>
+<table th:border="1">
+    <tr>
+        <th>用户uid</th>
+        <th>用户姓名</th>
+        <th>用户密码</th>
+        <th>用户性别</th>
+        <th>用户年龄</th>
+        <th>用户生日</th>
+        <th>注册时间</th>
+        <th>用户身份</th>
+        <th>用户描述</th>
+        <th>最后登陆</th>
+        <th>电子邮箱</th>
+    </tr>
+
+    <tr th:each="u : ${usersList}">
+        <td th:value="#{u.getUid}"></td>
+        <td th:value="#{u.getName}"></td>
+    </tr>
+
+
+
+
+
+</table>
+
+
+</body>
+</html>

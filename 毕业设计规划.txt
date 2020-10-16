@@ -1,0 +1,40 @@
+网上学习交流平台
+就是网上社交平台，类似于贴吧；
+基于b/s架构
+技术栈： 
+功能：
+及时通信，
+话题版块;
+发帖
+回复
+////////////////////////
+数据库设计：
+用户表：user
+   uid                  varchar(50) not null,
+   name                 varchar(50) not null,
+   password             varchar(50) not null,
+   birthday             date,
+   sex                  smallint,
+   age                  smallint,
+   register_date        datetime not null,
+   roleID		varchar(50),
+   description          varchar(50),
+   mailbox              varchar(50),
+   last_login_time      datetime,
+   primary key (uid),
+   unique key AK_Key_2 (name)
+帖子表:postMessage
+   pid                  varchar(50) not null,
+   uid                  varchar(50),
+   post_time             datetime not null,
+   type                 tinyint not null,
+   title                varchar(50),
+   messagebody          text not null,
+   primary key (pid)
+评论表：comment
+   userID               varchar(50) not null,
+   postID               varchar(50) not null,
+   message              text not null,
+   time                 datetime not null,
+   primary key (userID, postID)
+ 

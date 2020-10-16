@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/user/userTest}" method="post">
+    姓名：<input type="text" name="username"><br>
+    密码：<input type="text" name="password"><br>
+    <input type="submit" value="ok">
+</form>
+<form th:action="@{/user/userInsert}" method="post">
+    uid：<input type="text" name="uid"><br>
+    名字：<input type="text" name="name"><br>
+    密码：<input type="text" name="password"><br>
+    生日：<input type="date" name="birthday" pattern="yyyy-mm-dd"><br>
+    注册时间：<input type="datetime-local" name="register_date" pattern="yyyy-mm-dd"><br>
+    <input type="submit" value="ok">
+</form>
+=======================================================
+<span  th:text="删出用户"></span>
+<form th:action="@{/user/userDelete}" method="post">
+    输入您要删除的用户的uid：<input type="text" name="uid">
+    <input type="submit" value="ok">
+</form>
+=======================================================
+<span  th:text="修改用户"></span>
+<form th:action="@{/user/userUpdate}" method="post">
+    您要修改名字：<input type="text" name="name"><br>
+    您要修改的密码：<input type="text" name="password"><br>
+    您要修改的性别<input type="text" name="sex"><br>
+    您要修改的年龄<input type="text" name="age"><br>
+    您要修改的出生日期<input type="text" name="birhday"><br>
+    您要修改的描述<input type="text" name="description"><br>
+    请输入您的uid:<input type="text" name="uid"><br>
+    <input type="submit" value="ok">
+</form>
+============================================================
+<span  th:text="删出用户"></span>
+<form th:action="@{/user/userSelect}" method="post">
+    查询所有用户<input type="submit" value="ok">
+</form>
+</body>
+</html>
