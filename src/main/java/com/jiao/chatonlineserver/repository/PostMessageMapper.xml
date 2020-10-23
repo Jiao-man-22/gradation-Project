@@ -1,0 +1,40 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射java的接口-->
+<mapper namespace="com.jiao.chatonlineserver.repository.PostMessageMapper">
+    <insert id="addPost">
+        insert PostMessage (pid,uid,post_time,title,type,messagebody)
+        values(#{pid},#{uid},#{post_time},#{title},#{type},#{messagebody})
+    </insert>
+    <delete id="deletePost" parameterType="com.jiao.chatonlineserver.pojo.PostMessage">
+        delete from postMessage where pid=#{pid}
+    </delete>
+    <select id="selectPosts" resultMap="postMap">
+        select *from postmessage
+    </select>
+    <resultMap id="postMap" type="com.jiao.chatonlineserver.pojo.PostMessage">
+      <id column="pid"  property="pid"></id>
+        <result column="uid" property="uid"></result>
+        <result column="post_time" property="post_time"></result>
+        <result column="title" property="title"></result>
+        <result column="type" property="type"></result>
+        <result column="messagebody" property="messagebody"></result>
+    </resultMap>
+    <select id="selectPost" parameterType="com.jiao.chatonlineserver.pojo.PostMessage" resultMap="postMap">
+        select * from postmessage
+        <include refid="whereExpression"></include>
+    </select>
+    <select id="selectPostByUid" parameterType="com.jiao.chatonlineserver.pojo.PostMessage" resultMap="postMap">
+        select * from postmessage
+        <include refid="whereExpression"></include>
+    </select>
+    <sql id="whereExpression">
+        <where>
+            <if test="pid !=null"> and pid=#{pid}</if>
+             <if test="uid !=null"> and uid=#{uid}</if>
+        </where>
+    </sql>
+
+
+</mapper>

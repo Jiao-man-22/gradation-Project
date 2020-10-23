@@ -1,5 +1,6 @@
 package com.jiao.chatonlineserver.pojo;
 
+import org.attoparser.dom.INestableNode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;

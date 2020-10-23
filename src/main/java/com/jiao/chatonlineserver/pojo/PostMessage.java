@@ -1,10 +1,15 @@
 package com.jiao.chatonlineserver.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.sql.Date;
+
 
 public class PostMessage {
     public String pid;
     public String uid;
+    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss",timezone = "GMT+8")
     public Date post_time;
     public String title;
     public boolean type;
