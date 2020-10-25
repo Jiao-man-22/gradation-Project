@@ -35,6 +35,9 @@
              <if test="uid !=null"> and uid=#{uid}</if>
         </where>
     </sql>
+    <delete id="delPostByUid" parameterType="com.jiao.chatonlineserver.pojo.PostMessage">
+       delete from postMessage where uid=#{uid}
+    </delete>
 
 
 </mapper>

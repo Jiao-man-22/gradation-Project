@@ -26,7 +26,7 @@ public class AdminController {
                 User user = new User();
                 user.setName(username);
                 User user1 = this.userService.selectUser(user);
-                if (user1!=null && user1.getPassword().equals(password) ) {
+                if (user1!=null && user1.getPassword().equals(password) &&user1.getRoleID().equals("admin") ) {
                     return 1;
                 }
             }

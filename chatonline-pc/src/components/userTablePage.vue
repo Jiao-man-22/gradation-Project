@@ -1,5 +1,5 @@
 <template>
-        <el-table :data="tableData">
+        <el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))">
           <el-table-column prop="register_date" label="注册日期" width="200">
           </el-table-column>
           <el-table-column prop="uid" label="uid" width="120">

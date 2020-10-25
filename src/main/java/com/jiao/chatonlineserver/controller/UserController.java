@@ -1,6 +1,7 @@
 package com.jiao.chatonlineserver.controller;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.jiao.chatonlineserver.pojo.PostMessage;
 import com.jiao.chatonlineserver.pojo.User;
 import com.jiao.chatonlineserver.pojo.UserTest;
 import com.jiao.chatonlineserver.services.UserService;
@@ -46,7 +47,9 @@ public class UserController {
         if (uid!=null){
             User user = new User();
             user.setUid(uid);
-            this.userService.deleteUser(user);
+            PostMessage postMessage = new PostMessage();
+            postMessage.setUid(uid);
+            this.userService.deleteUser(user,postMessage);
         }else{
             System.out.println("uid===="+uid);
             return "error";

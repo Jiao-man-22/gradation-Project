@@ -10,4 +10,5 @@ public interface PostMessageMapper {
     public PostMessage selectPost(PostMessage pm);
     public List<PostMessage> selectPosts();
     public List<PostMessage> selectPostByUid(PostMessage pm);
+    public void delPostByUid(PostMessage pm);
 }

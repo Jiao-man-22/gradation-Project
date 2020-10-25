@@ -6,12 +6,12 @@
     <insert id="insertTestUser" useGeneratedKeys="true" parameterType="com.jiao.chatonlineserver.pojo.UserTest">
         insert into testuser (username,password) value (#{username},#{password})
     </insert>
-    <insert id="insertUser" useGeneratedKeys="true" parameterType="com.jiao.chatonlineserver.pojo.User">
+    <insert id="insertUser" keyProperty="uid" useGeneratedKeys="true" parameterType="com.jiao.chatonlineserver.pojo.User">
         insert into user (uid,name,password,birthday,sex,age,register_date,description,roleID,mailbox,last_login_time)
         value
         (#{uid},#{name},#{password},#{birthday},#{sex},#{age},#{register_date},#{description},#{roleID},#{mailbox},#{last_login_time})
     </insert>
-    <delete id="deleteUser" parameterType="com.jiao.chatonlineserver.pojo.User">
+    <delete id="deleteUser" parameterType="com.jiao.chatonlineserver.pojo.User"  >
         delete from user where uid=#{uid}
     </delete>
     <update id="updateUser" parameterType="com.jiao.chatonlineserver.pojo.User">
