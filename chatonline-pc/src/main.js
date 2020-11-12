@@ -5,6 +5,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 //在main.js中引入 axios
 import axios from 'axios'
+import store from './store/store'
 axios.defaults.baseURL='http://localhost:8080'
 //Vue 原型挂载
 Vue.prototype.axios=axios
@@ -13,6 +14,7 @@ Vue.config.productionTip = false
 
 new Vue({
     router,
+    store,
     render: h => h(App)
 }).$mount('#app')
 

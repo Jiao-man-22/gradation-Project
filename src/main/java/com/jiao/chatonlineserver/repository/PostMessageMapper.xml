@@ -4,7 +4,7 @@
 <!--映射java的接口-->
 <mapper namespace="com.jiao.chatonlineserver.repository.PostMessageMapper">
     <insert id="addPost">
-        insert PostMessage (pid,uid,post_time,title,type,messagebody)
+        insert into PostMessage (pid,uid,post_time,title,type,messagebody)
         values(#{pid},#{uid},#{post_time},#{title},#{type},#{messagebody})
     </insert>
     <delete id="deletePost" parameterType="com.jiao.chatonlineserver.pojo.PostMessage">
@@ -20,6 +20,7 @@
         <result column="title" property="title"></result>
         <result column="type" property="type"></result>
         <result column="messagebody" property="messagebody"></result>
+        <result column="course" property="course"></result>
     </resultMap>
     <select id="selectPost" parameterType="com.jiao.chatonlineserver.pojo.PostMessage" resultMap="postMap">
         select * from postmessage
@@ -38,6 +39,9 @@
     <delete id="delPostByUid" parameterType="com.jiao.chatonlineserver.pojo.PostMessage">
        delete from postMessage where uid=#{uid}
     </delete>
+    <select id="selectPostByCourse" parameterType="com.jiao.chatonlineserver.pojo.PostMessage"  resultMap="postMap">
+        select *from postMessage where course=#{course}
+    </select>
 
 
 </mapper>

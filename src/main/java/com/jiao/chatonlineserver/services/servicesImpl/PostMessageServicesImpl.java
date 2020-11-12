@@ -58,4 +58,10 @@ public class PostMessageServicesImpl  implements PostMessageService {
     public void delPostByUid(PostMessage pm) {
         this.pmm.delPostByUid(pm);
     }
+
+    @Override
+    public List<PostMessage> selectPostByCourse(PostMessage pm) {
+        List<PostMessage> postMessages = this.pmm.selectPostByCourse(pm);
+        return postMessages;
+    }
 }

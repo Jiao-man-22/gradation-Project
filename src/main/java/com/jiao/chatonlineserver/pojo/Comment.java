@@ -1,42 +1,40 @@
 package com.jiao.chatonlineserver.pojo;
 
-import java.sql.Date;
+public class Comment {
+    private int cid;
+    private String name;
+    private String text;
+    private int cpid;
 
-public class Comment  {
-    public String userID;
-    public String postID;
-    public String message;
-    public Date time;
-
-    public String getUserID() {
-        return userID;
+    public int getCpid() {
+        return cpid;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setCpid(int cpid) {
+        this.cpid = cpid;
     }
 
-    public String getPostID() {
-        return postID;
+    public int getCid() {
+        return cid;
     }
 
-    public void setPostID(String postID) {
-        this.postID = postID;
+    public void setCid(int cid) {
+        this.cid = cid;
     }
 
-    public String getMessage() {
-        return message;
+    public String getName() {
+        return name;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Date getTime() {
-        return time;
+    public String getText() {
+        return text;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setText(String text) {
+        this.text = text;
     }
 }

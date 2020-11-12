@@ -5,7 +5,12 @@ import adminPage from '../components/adminPage.vue'
 import adminLoginPage from '../components/adminLoginPage.vue'
 import postsPage from '../components/postsPage.vue'
 import mainPage  from '../components/mainPage.vue'
-
+import commentsByPid from '../components/commentsByPid.vue'
+import studyArea from '../components/studyArea.vue'
+import python from '../components/python.vue'
+import ios from '../components/ios.vue'
+import php from '../components/php.vue'
+import javaweb from '../components/javaweb.vue'
 
 Vue.use(VueRouter)
 
@@ -45,8 +50,35 @@ const routes = [
   // },
   {
     path:'/mainPage',
-    component:mainPage
+    component:mainPage,
+    redirect: "/studyArea",
+    children:[
+      { 
+        path:'/studyArea',
+        component:studyArea
+    },
+    {
+        path:'/python',
+        component:python
+    },
+    {
+        path:'/ios',
+        component:ios
+    },
+    {   path:'/javaweb',
+        component:javaweb},
+      {
+        path:'/php',
+        component:php
+      }
+    ]
   },
+  {
+    path:'/commentsByPid',
+    component:commentsByPid,
+  },
+
+
   // {
   //   path: '/postsPage',
   //   name: 'PostsPage',

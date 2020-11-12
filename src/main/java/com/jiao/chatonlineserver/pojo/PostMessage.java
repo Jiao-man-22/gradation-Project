@@ -14,6 +14,15 @@ public class PostMessage {
     public String title;
     public boolean type;
     public String messagebody;
+    public String course;
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
 
     public String getPid() {
         return pid;

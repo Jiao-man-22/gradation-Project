@@ -1,0 +1,24 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射java的接口-->
+<mapper namespace="com.jiao.chatonlineserver.repository.ChildrenPostMapper">
+    <resultMap id="postMap" type="com.jiao.chatonlineserver.pojo.ChildrenPost">
+        <id column="cpid" property="cpid"></id>
+        <result column="text" property="text"></result>
+        <result column="pid" property="pid"></result>
+        <result column="spokesman" property="spokesman"></result>
+    </resultMap>
+
+  <insert id="insertChildrenPost"  parameterType="com.jiao.chatonlineserver.pojo.ChildrenPost">
+      insert into childrenpost (cpid,text,pid,spokesman) values (#{cpid},#{text},#{pid},#{spokesman} )
+  </insert>
+    <select id="selectPostByPid" parameterType="com.jiao.chatonlineserver.pojo.ChildrenPost" resultMap="postMap">
+        select *from childrenpost where pid=#{pid}
+    </select>
+
+
+
+
+
+</mapper>

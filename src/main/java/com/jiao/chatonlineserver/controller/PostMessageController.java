@@ -91,7 +91,14 @@ public class PostMessageController {
         }
         return null;
     }
-
+    @ResponseBody
+    @RequestMapping("/selectPostByCourse")
+    public List<PostMessage> selectPostByCourse(@RequestParam String course){
+        PostMessage postMessage = new PostMessage();
+        postMessage.setCourse(course);
+        List<PostMessage> postMessages = pms.selectPostByCourse(postMessage);
+        return postMessages;
+    }
 
 
 }

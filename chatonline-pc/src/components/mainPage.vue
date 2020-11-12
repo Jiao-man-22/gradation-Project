@@ -1,11 +1,11 @@
 <template>
   <div class="block">
-    <el-carousel height="400px" >
+    <el-carousel height="400px">
       <el-carousel-item v-for="item in img" :key="item.id">
         <img :src="item.idView" alt="" />
       </el-carousel-item>
     </el-carousel>
-      <el-input
+    <el-input
       prefix-icon="el-icon-user-solid"
       v-model="username"
       maxlength="10"
@@ -128,14 +128,11 @@
         <div class="header_img">
           <el-row class="demo-avatar demo-basic">
             <el-col :span="12">
-              <!-- <div class="sub-title">circle</div> -->
+              <div class="sub-title"></div>
               <div class="demo-basic--circle">
                 <div class="block">
                   <el-avatar :size="50" :src="circleUrl"> </el-avatar>
                 </div>
-                <!-- <div class="block">
-          <el-avatar :size="size" :src="circleUrl"></el-avatar>
-      </div> -->
               </div>
             </el-col>
           </el-row>
@@ -152,11 +149,7 @@
         </div>
         <!-- 展示用户所属的所有贴字-->
         <div>
-          <el-table
-            :data="postData"
-            style="width: 100%"
-            max-height="500"
-          >
+          <el-table :data="postData" style="width: 100%" max-height="500">
             <el-table-column fixed prop="post_time" label="日期" width="150">
             </el-table-column>
             <el-table-column prop="title" label="标题" width="120">
@@ -182,30 +175,78 @@
         </div>
       </el-drawer>
     </div>
-    <div class="calendar_block">
-      <el-calendar v-model="value"> </el-calendar>
+    <!--导航栏-->
+    <div class="nav">
+      <el-menu
+        :default-active="activeIndex"
+        class="el-menu"
+        mode="horizontal"
+        @select="handleSelect"
+        router
+      >
+        <el-menu-item index="/studyArea">java课程</el-menu-item>
+        <el-menu-item index="/php">php课程</el-menu-item>
+        <el-menu-item index="/ios">ios课程</el-menu-item>
+        <el-menu-item index="/python">python课程</el-menu-item>
+        <el-menu-item index="javaweb">javaweb课程</el-menu-item>
+      </el-menu>
+      <router-view></router-view>
     </div>
-    <h3>帖子论坛</h3>
-    <hr />
-    <!--帖子展示区-->
+    <div class="outer_container">
+      <h3>帖子论坛</h3>
+      <hr/>
     <div class="post-block">
-      <el-table :data="tableData" style="width: 50%">
-        <el-table-column prop="post_time" label="日期" width="150">
-        </el-table-column>
-        <!--数据库设计缺陷，没有name-->
-        <el-table-column prop="uid" label="用户ID" width="100">
-        </el-table-column>
-        <el-table-column prop="pid" label="帖子ID" width="100">
-        </el-table-column>
-        <el-table-column prop="title" label="标题" width="100">
-        </el-table-column>
-        <el-table-column prop="messagebody" label="帖子" width="500">
-        </el-table-column>
-      </el-table>
+    <el-table
+    :data="tableData"
+    style="width: 100%">
+    <el-table-column
+      label="日期"
+      width="180">
+      <template slot-scope="scope">
+        <i class="el-icon-time"></i>
+        <span style="margin-left: 10px">{{ scope.row.post_time }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="uid"
+      width="50">
+      <template slot-scope="scope">
+      <span style="margin-left: 10px">{{ scope.row.uid }}</span>
+      </template>
+    </el-table-column>
+     <el-table-column
+      label="标题"
+      width="180">
+      <template slot-scope="scope">
+      <span style="margin-left: 10px">{{ scope.row.title }}</span>
+      </template>
+    </el-table-column>
+     <el-table-column
+      label="内容"
+      width="180">
+      <template slot-scope="scope">
+      <span style="margin-left: 10px">{{ scope.row.messagebody }}</span>
+      </template>
+    </el-table-column>
+
+    <el-table-column label="操作">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          @click="lookPost(scope.$index, scope.row,username)">查看</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+      </div>
     </div>
   </div>
 </template>
+
+
 <style>
+hr {
+  margin-top: -2px;
+}
 .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;
@@ -221,23 +262,16 @@
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
-.post.block {
-  /* display: inline-block; */
-  width: 50%;
-  height: 200px;
-  background-color: #123456;
-  float: left;
-  margin-top: 5px;
+el-menu {
+  margin-left: 100px;
+  align-self: center;
 }
-.calendar_block {
-  /* display: inline-block; */
+.outer_container {
   width: 50%;
-  height: 200px;
-  background-color: #987125;
+}
+.nav {
+  width: 50%;
   float: right;
-}
-hr {
-  margin-top: -10px;
 }
 </style>
 <script>
@@ -257,6 +291,18 @@ export default {
       username: "",
       userId: "",
       user: {},
+      postList: [],
+      playload:{
+        pid:''
+      },
+      userinfo:{
+        uid:'',
+        username:'',
+      },
+      childrenPost:{
+        data:[],
+      },
+
       //name:'',
       img: [
         { id: 0, idView: require("../assets/05.jpg") },
@@ -290,6 +336,31 @@ export default {
     this.getPost();
   },
   methods: {
+    //查看帖子
+    lookPost(index,row,username) {
+
+      if (username=='') {
+        alert('请先登陆')
+      } else {
+          axios({
+        url:'/ChildrenPost/selectPostByPid',
+        params:{
+          pid:row.pid
+        }
+      }).then(res=>{
+        //data数组赋值给children对象的data数组
+        console.log(res)
+        this.childrenPost.data=res.data
+        //将帖子的pid放入store
+        this.playload.pid=row.pid
+        // alert(this.playload.pid)
+        this.$store.commit('addPid',this.playload)
+        // alert(this.$store.state.pid)
+        this.$store.commit('addData',this.childrenPost)
+         this.$router.push("/commentsByPid");
+      })
+      }
+    },
     turnAdminPage() {
       //跳转页面
       this.dialogFormVisible = false;
@@ -310,8 +381,12 @@ export default {
         } else if (res.data != "") {
           console.log(res.data);
           this.$message("登陆成功"),
-            (this.username = res.data.name),
-            (this.userId = res.data.uid);
+          this.username = res.data.name
+          this.userId = res.data.uid;
+          this.userinfo.uid=res.data.uid,
+          this.userinfo.username=res.data.name
+          this.$store.commit('changValue',this.userinfo)
+          
           //为用户数据赋值
           //将对象放到数组中
           this.userData.push(res.data);
@@ -347,6 +422,7 @@ export default {
         this.tableData = res.data;
       });
     },
+    //用户插入
     userInsert(userForm) {
       axios({
         url: "/user/userInsert",
