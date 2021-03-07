@@ -5,6 +5,8 @@ import com.jiao.chatonlineserver.pojo.PostMessage;
 import com.jiao.chatonlineserver.pojo.User;
 import com.jiao.chatonlineserver.pojo.UserTest;
 import com.jiao.chatonlineserver.services.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +18,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user")
+@Api("用户请求类")
 public class UserController {
     @Autowired
     UserService userService;
     JSONPObject jsonpObject=null;
     @CrossOrigin
-    @RequestMapping("/userInsert")
+    @PostMapping("/userInsert")
+    @ApiOperation("插入用户")
     public String  userInsert(User user, HttpServletRequest request){
         try {
             this.userService.insertUser(user);

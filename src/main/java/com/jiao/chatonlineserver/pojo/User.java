@@ -1,10 +1,8 @@
 package com.jiao.chatonlineserver.pojo;
-
-import org.attoparser.dom.INestableNode;
+import io.swagger.annotations.ApiModel;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
-
+@ApiModel(description = "user class mapping  entity of class that which is in database")
 public class User {
     public String uid;
     public String name;
