@@ -2,9 +2,11 @@ package com.jiao.chatonlineserver.controller;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.jiao.chatonlineserver.pojo.PostMessage;
+import com.jiao.chatonlineserver.pojo.TokenData;
 import com.jiao.chatonlineserver.pojo.User;
 import com.jiao.chatonlineserver.pojo.UserTest;
 import com.jiao.chatonlineserver.services.UserService;
+import com.jiao.chatonlineserver.utils.TokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.http.HttpRequest;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -92,7 +95,8 @@ public class UserController {
     }
     @CrossOrigin
     @ResponseBody
-    @RequestMapping("/userLogin")
+    @GetMapping("/userLogin")
+    @ApiOperation("用户登入生成token并返回")
     public User userLogin(@RequestParam String name,@RequestParam String password){
         User user = new User();
         //将参数绑定到pojo
@@ -101,7 +105,18 @@ public class UserController {
             user.setPassword(password);
             User user1 = this.userService.selectUser(user);
             if (user1!=null && user1.getPassword().equals(user.getPassword())){
-                return  user1;
+
+                try {
+                    String token = TokenService.returnToken(name, password);
+                    com.jiao.chatonlineserver.services.servicesImpl.TokenService tokenService = new com.jiao.chatonlineserver.services.servicesImpl.TokenService();
+                    TokenData tokenData = new TokenData();
+                    tokenData.setAccess_token(token);
+                    tokenData.setCreate_time(new Date());
+                    tokenService.addToken(tokenData);
+                    return  user1;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
         return null;
