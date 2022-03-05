@@ -38,7 +38,10 @@ export default {
             // 创建对象 存放user and password
             login_form:{
                 username:'',
-                password:''
+                password:'',
+                rememberMe: false,
+                code: "",
+                uuid: ""
             },
             //这是表单验证规则对象
 
@@ -51,7 +54,14 @@ export default {
             { required: true, message: '请输入密码名称', trigger: 'blur' },
             { min: 1, max: 11, message: '长度在 1 到 11 个字符', trigger: 'blur' }
             ]
-            }
+            },
+            loading: false,
+            // 验证码开关
+             captchaOnOff: true,
+            // 注册开关
+            register: false,
+            redirect: undefined
+
         }
     },
     //绑定组件动作

@@ -1,0 +1,22 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射java的接口-->
+<mapper namespace="com.jiao.chatonlineserver.repository.CommentMapper">
+    <resultMap id="commentMap" type="com.jiao.chatonlineserver.pojo.Comment">
+        <id column="cid" property="cid"></id>
+        <result column="text" property="text"></result>
+        <result column="name" property="name"></result>
+        <result column="cpid" property="cpid"></result>
+    </resultMap>
+    <insert id="insertComment" parameterType="com.jiao.chatonlineserver.pojo.Comment">
+        insert into comment ( cid,name,text,cpid)
+        values(#{cid},#{name},#{text},#{cpid})
+    </insert>
+    <select id="selectCommentBycpid" parameterType="com.jiao.chatonlineserver.pojo.Comment" resultMap="commentMap">
+        select *from comment where cpid=#{cpid}
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,65 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射java的接口-->
+<mapper namespace="com.jiao.chatonlineserver.repository.UserMapper">
+    <insert id="insertTestUser" useGeneratedKeys="true" parameterType="com.jiao.chatonlineserver.pojo.UserTest">
+        insert into testuser (username,password) value (#{username},#{password})
+    </insert>
+    <insert id="insertUser" keyProperty="uid" useGeneratedKeys="true" parameterType="com.jiao.chatonlineserver.pojo.User">
+        insert into user (uid,name,password,birthday,sex,age,register_date,description,roleID,mailbox,last_login_time)
+        value
+        (#{uid},#{name},#{password},#{birthday},#{sex},#{age},#{register_date},#{description},#{roleID},#{mailbox},#{last_login_time})
+    </insert>
+    <delete id="deleteUser" parameterType="com.jiao.chatonlineserver.pojo.User"  >
+        delete from user where uid=#{uid}
+    </delete>
+    <update id="updateUser" parameterType="com.jiao.chatonlineserver.pojo.User">
+        update user
+        <include refid="updateSet"></include>
+        <include refid="updateWhere"></include>
+    </update>
+    <sql id="updateSet">
+        <set>
+<!--            <if test="uid !=null">uid = #{uid},</if>-->
+            <if test="name !=null">name = #{name},</if>
+            <if test="password !=null">password = #{password},</if>
+            <if test="birthday !=null">birthday =#{birthday},</if>
+            <if test="sex !=null" > sex =#{sex},</if>
+            <if test="age !=null"> age =#{age},</if>
+            <if test="register_date !=null">regsiter_date=#{register_date},</if>
+            <if test="roleID !=null">roleID =#{roleID},</if>
+            <if test="description !=null">description =#{description},</if>
+            <if test="mailbox !=null">mailbox =#{mailbox},</if>
+            <if test="last_login_time !=null">last_login_time =#{last_login_time},</if>
+        </set>
+    </sql>
+    <sql id="updateWhere">
+        <where>
+            <if test="uid !=null"> and uid = #{uid}</if>
+        </where>
+    </sql>
+    <select id="selectUsers" resultMap="userMap">
+        select *from user 
+    </select>
+<!--    结果集映射-->
+    <resultMap id="userMap" type="com.jiao.chatonlineserver.pojo.User">
+        <id column="uid" property="uid"></id>
+        <result column="name" property="name"></result>
+        <result column="password" property="password"></result>
+        <result column="sex" property="sex"></result>
+        <result column="age" property="age"></result>
+        <result column="birthday" property="birthday"></result>
+        <result column="register_date" property="register_date"></result>
+        <result column="description" property="description"></result>
+        <result column="roleID" property="roleID"></result>
+        <result column="mailbox" property="mailbox"></result>
+        <result column="last_login_time" property="last_login_time"></result>
+    </resultMap>
+    <select id="selectUser" parameterType="com.jiao.chatonlineserver.pojo.User" resultMap="userMap">
+        select * from user where  name=#{name}
+    </select>
+
+
+
+</mapper>
